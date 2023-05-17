@@ -1,0 +1,25 @@
+apiVersion: gateway.solo.io/v1
+kind: VirtualService
+metadata:
+  name: main-vs
+  namespace: apps-configuration
+spec:
+  virtualHost:
+    domains:
+      #- '*'
+      - 'cert.test.gloo'
+    routes:
+      - matchers:
+          - exact: /get-pets
+        options:
+          prefixRewrite: /api/pets
+        routeAction:
+          single:
+            upstream:
+              name: petstore-upstream
+              namespace: apps-configuration
+  sslConfig:
+    secretRef:
+      name: ingress-tls-secret
+      namespace: apps-configuration
+    oneWayTls: true

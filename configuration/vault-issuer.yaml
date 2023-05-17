@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-issuer
+  namespace: apps-configuration
+spec:
+  vault:
+    auth:
+      tokenSecretRef:
+          name: cert-manager-vault-token
+          key: token
+    path: pki/sign/test-dot-com
+    server: http://vault.vault.svc:8200

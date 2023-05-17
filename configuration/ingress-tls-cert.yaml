@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ingress-tls-cert
+  namespace: apps-configuration
+spec:
+  commonName: cert.test.gloo
+  dnsNames:
+    - san1.test.gloo
+    - cert.test.gloo
+  duration: 720h0m0s
+  issuerRef:
+    kind: Issuer
+    name: vault-issuer
+  privateKey:
+    rotationPolicy: Always
+  renewBefore: 696h0m0s
+  secretName: ingress-tls-secret
+  usages:
+    - server auth
