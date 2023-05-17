@@ -25,7 +25,7 @@ Uses the [base bootstrapping project](https://github.com/pseudonator/gloo-edge-1
     export CERT_MANAGER_VERSION="v1.11.2"
     export VAULT_VERSION="0.24.1"
 
-    ._output/gloo-edge-1-14/cluster-provision/scripts/provision-eks-cluster.sh create -n $PROJECT -o $CLUSTER_OWNER -a 3 -v 1.25 -r "${EKS_CLUSTER_REGION}"
+    ._output/gloo-edge-1-14/cluster-provision/scripts/provision-eks-cluster.sh create -n $PROJECT -o $CLUSTER_OWNER -a 3 -v 1.25 -r $EKS_CLUSTER_REGION
 
     ._output/gloo-edge-1-14/setup.sh -f gloo-edge-override-helm-values.yaml -i
     ```
@@ -79,6 +79,14 @@ Uses the [base bootstrapping project](https://github.com/pseudonator/gloo-edge-1
 
     kubectl apply -f configuration
     ```
+
+## Clean up
+
+```
+._output/gloo-edge-1-14/cleanup.sh
+
+._output/gloo-edge-1-14/cluster-provision/scripts/provision-eks-cluster.sh delete -n $PROJECT -o $CLUSTER_OWNER -r $EKS_CLUSTER_REGION
+```
 
 ## Testing
 
