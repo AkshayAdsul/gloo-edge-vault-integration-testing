@@ -99,7 +99,9 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/downlo
     ```
 ## Make changes to Gloo Edge settings 
 
+```
 kubectl --namespace gloo-system edit settings default
+```
 Modify settings to remove kubernetesSecretSource: {} and  then add below at the same level the removed line was indented
 
 ```
