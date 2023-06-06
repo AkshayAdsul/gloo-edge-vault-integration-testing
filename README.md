@@ -93,14 +93,16 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/downlo
 kubectl --namespace gloo-system edit settings default
 Modify settings to remove kubernetesSecretSource: {} and  then add below at the same level the removed line was indented
 
+```
 secretOptions:
   sources:
     - vault:
         accessToken: root
         address: http://vault.vault.svc:8200
     - kubernetes: {}
-    
-
+``` 
+If using AWS Auth you can give the same options under the vault option above as described in this link 
+https://docs.solo.io/gloo-edge/latest/installation/advanced_configuration/vault_secrets/#customizing-the-gloo-edge-settings-file
 ## Testing
 
 ```
