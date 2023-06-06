@@ -19,7 +19,7 @@ Uses the [base bootstrapping project](https://github.com/pseudonator/gloo-edge-1
 
     export DOMAIN_NAME=testing.development.internal
 
-    export GLOO_EDGE_HELM_VERSION=1.14.1
+    export GLOO_EDGE_HELM_VERSION=1.15.0-beta2-bcheck-multiple-secrets-api-5d4d647
     export GLOO_EDGE_VERSION=v${GLOO_EDGE_HELM_VERSION}
 
     export CERT_MANAGER_VERSION="v1.11.2"
@@ -88,6 +88,24 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/downlo
 
     kubectl apply -f configuration
     ```
+## Make changes to Gloo Edge settings 
+
+kubectl --namespace gloo-system edit settings default
+Modify settings to remove kubernetesSecretSource: {} and  then add below at the same level the removed line was indented
+
+secretOptions:
+  sources:
+    - vault:
+        accessToken: root
+        address: http://vault.vault.svc:8200
+    - kubernetes: {}
+    
+
+## Testing
+
+```
+curl -kiv -H "Host: cert.test.gloo" https://$(kubectl get svc gateway-proxy -n gloo-system -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}')/get-pets
+```
 
 ## Clean up
 
@@ -95,10 +113,4 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/downlo
 ._output/gloo-edge-1-14/cleanup.sh
 
 ._output/gloo-edge-1-14/cluster-provision/scripts/provision-eks-cluster.sh delete -n $PROJECT -o $CLUSTER_OWNER -r $EKS_CLUSTER_REGION
-```
-
-## Testing
-
-```
-curl -kiv -H "Host: cert.test.gloo" https://$(kubectl get svc gateway-proxy -n gloo-system -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}')/get-pets
 ```
