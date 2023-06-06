@@ -49,6 +49,9 @@ Uses the [base bootstrapping project](https://github.com/pseudonator/gloo-edge-1
 
     Install vault on kubernetes
     Please follow https://medium.com/@tanmayvarade/hashicorp-vault-part-2-deploy-vault-on-kubernetes-edb049301d1
+    helm repo add hashicorp https://helm.releases.hashicorp.com
+    kubectl create namespace vault
+    helm install vault hashicorp/vault --values vault-values.yaml -n vault
 
     Run the following set of commands to configure Vault to issue certs.
 
