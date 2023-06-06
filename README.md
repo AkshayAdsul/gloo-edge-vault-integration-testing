@@ -11,7 +11,7 @@ Uses the [base bootstrapping project](https://github.com/pseudonator/gloo-edge-1
     mkdir -p ._output
     git clone https://github.com/pseudonator/gloo-edge-1-14 ._output/gloo-edge-1-14
 
-    export CLUSTER_OWNER="kasunt"
+    export CLUSTER_OWNER="akshay"
     export PROJECT="gloo-ee-vault-integration"
 
     export CLOUD_PROVIDER="eks"
@@ -39,6 +39,10 @@ Uses the [base bootstrapping project](https://github.com/pseudonator/gloo-edge-1
     ```
 
 3. Configuration
+
+
+    Install vault on kubernetes
+    Please follow https://medium.com/@tanmayvarade/hashicorp-vault-part-2-deploy-vault-on-kubernetes-edb049301d1
 
     Run the following set of commands to configure Vault to issue certs.
 
@@ -71,6 +75,11 @@ Uses the [base bootstrapping project](https://github.com/pseudonator/gloo-edge-1
     path "pki/issue/test-dot-com"   { capabilities = ["create"] }
     EOF
     ```
+
+
+Install Cert Manager 
+
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/download/cert-manager.yaml
 
     Application configuration
 

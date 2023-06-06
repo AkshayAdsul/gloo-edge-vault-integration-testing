@@ -23,7 +23,7 @@ rbac:
 global:
   ## Override `settings.spec.extauth` with `global.extensions.extAuth`
   extauthCustomYaml: false
-  extraSpecs: true
+  #extraSpecs: true
 
   # Global Image details
   image:
