@@ -31,6 +31,7 @@ Uses the [base bootstrapping project](https://github.com/pseudonator/gloo-edge-1
 
     
 2. Install Gloo Edge
+```
     helm repo add gloo-test https://storage.googleapis.com/gloo-ee-test-helm 
     helm repo update
     helm install gloo-test gloo-test/gloo -n gloo-system --version 1.15.0-beta2-bcheck-multiple-secrets-api-5d4d647 --create-namespace --set-string license_key=${GLOO_EDGE_LICENSE_KEY} -f gloo-edge-override-helm-values.yaml
