@@ -29,14 +29,15 @@ Uses the [base bootstrapping project](https://github.com/pseudonator/gloo-edge-1
 
     ._output/gloo-edge-1-14/cluster-provision/scripts/provision-eks-cluster.sh create -n $PROJECT -o $CLUSTER_OWNER -a 3 -v 1.25 -r $EKS_CLUSTER_REGION
 
-    Install Gloo Edge
+    
+2. Install Gloo Edge
     helm repo add gloo-test https://storage.googleapis.com/gloo-ee-test-helm 
     helm repo update
     helm install gloo-test gloo-test/gloo -n gloo-system --version 1.15.0-beta2-bcheck-multiple-secrets-api-5d4d647 --create-namespace --set-string license_key=${GLOO_EDGE_LICENSE_KEY} -f gloo-edge-override-helm-values.yaml
 
     ```
 
-2. Install Sample App
+3. Install Sample App
 
     ```
     kubectl create ns apps
@@ -44,7 +45,7 @@ Uses the [base bootstrapping project](https://github.com/pseudonator/gloo-edge-1
     kubectl apply -f apps/deploy-petstore.yaml
     ```
 
-3. Configuration
+4. Configuration
 
 
     Install vault on kubernetes
@@ -88,7 +89,7 @@ Uses the [base bootstrapping project](https://github.com/pseudonator/gloo-edge-1
     ```
 
 
-Install Cert Manager 
+5. Install Cert Manager 
 
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/download/cert-manager.yaml
 
@@ -99,7 +100,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/downlo
 
     kubectl apply -f configuration
     ```
-## Make changes to Gloo Edge settings 
+6. Make changes to Gloo Edge settings 
 
 ```
 kubectl --namespace gloo-system edit settings default
@@ -116,13 +117,14 @@ secretOptions:
 ``` 
 If using AWS Auth you can give the same options under the vault option above as described in this link 
 https://docs.solo.io/gloo-edge/latest/installation/advanced_configuration/vault_secrets/#customizing-the-gloo-edge-settings-file
-## Testing
+
+7. Testing
 
 ```
 curl -kiv -H "Host: cert.test.gloo" https://$(kubectl get svc gateway-proxy -n gloo-system -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}')/get-pets
 ```
 
-## Clean up
+8.  Clean up
 
 ```
 ._output/gloo-edge-1-14/cleanup.sh
